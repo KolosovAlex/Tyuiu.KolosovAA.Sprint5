@@ -6,7 +6,6 @@ using System.Threading.Tasks;
 using System.IO;
 
 using tyuiu.cources.programming.interfaces.Sprint5;
-
 namespace Tyuiu.KolosovAA.Sprint5.Task1.V28.Lib
 {
     public class DataService : ISprint5Task1V28
@@ -16,29 +15,29 @@ namespace Tyuiu.KolosovAA.Sprint5.Task1.V28.Lib
             string path = $@"{Directory.GetCurrentDirectory()}\OutPutFileTask1.txt";
             FileInfo fileInfo = new FileInfo(path);
             bool fileExists = fileInfo.Exists;
-
             if (fileExists)
             {
                 File.Delete(path);
             }
-
             double y;
-            string str;
+            string strY;
             for (int x = startValue; x <= stopValue; x++)
             {
-                y = Math.Round(((Math.Cos(x) / (x - 0.7)) - (Math.Sin(x) * 12 * x) + 2), 2);
-                if ((x - 0.7) == 0)
+                y = Math.Round((Math.Cos(x) / (x - 0.7) - Math.Sin(x) * 12.0 * x + 2), 2);
+                strY = Convert.ToString(y);
+                if (x != stopValue && (x - 0.7) != 0)
+                {
+                    File.AppendAllText(path, strY + Environment.NewLine);
+                }
+                else if (x != stopValue && (x - 0.7) == 0)
                 {
                     y = 0;
-                }
-                str = Convert.ToString(y);
-                if (x != stopValue)
-                {
-                    File.AppendAllText(path, str + Environment.NewLine);
+                    strY = Convert.ToString(y);
+                    File.AppendAllText(path, strY + Environment.NewLine);
                 }
                 else
                 {
-                    File.AppendAllText(path, str);
+                    File.AppendAllText(path, strY);
                 }
             }
             return path;
